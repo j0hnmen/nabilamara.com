@@ -41,12 +41,12 @@ html{background:#f0f0f0}
 body{min-height:100vh;color:var(--ink);font-family:var(--text);-webkit-font-smoothing:antialiased}
 .paper{position:fixed;inset:0;z-index:-1;background:#f0f0f0 url(img/paper.webp) center top/cover no-repeat}
 a{color:inherit;text-decoration:none}
-.soc{position:absolute;z-index:5;display:flex;gap:4px;top:26px;left:44px}
-.soc a{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;color:var(--ink);transition:color .25s,transform .3s cubic-bezier(.3,1.6,.5,1)}
+.soc{position:absolute;z-index:5;display:flex;gap:0;top:26px;left:40px}
+.soc a{display:grid;place-items:center;width:42px;height:48px;border-radius:50%;color:var(--ink);transition:color .25s,transform .3s cubic-bezier(.3,1.6,.5,1)}
 .soc a:hover{color:var(--blue);transform:scale(1.08)}
-.soc svg{width:25px;height:25px;fill:currentColor;display:block}
-.soc a[data-soc=instagram] svg{transform:scale(.92)} .soc a[data-soc=linkedin] svg{transform:scale(.8)}
-header.hero{min-height:48vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(12px,1.3vw,20px);padding:120px 24px 50px;text-align:center}
+.soc svg{width:24px;height:24px;fill:currentColor;display:block}
+
+header.hero{min-height:48vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(22px,2.3vw,36px);padding:120px 24px 50px;text-align:center}
 h1{font-family:var(--display);font-weight:800;font-stretch:62%;text-transform:uppercase;font-size:clamp(64px,8.6vw,136px);line-height:.86;color:var(--ink)}
 .sub{font-family:var(--text);font-weight:400;font-variation-settings:'opsz' 14;text-transform:uppercase;font-size:clamp(13px,1.35vw,20px);letter-spacing:.14em;padding-left:.14em;line-height:1;color:var(--blue)}
 main{max-width:1360px;margin:0 auto;padding:30px 56px 120px;display:grid;grid-template-columns:repeat(6,1fr);gap:64px 40px}
@@ -63,6 +63,13 @@ main{max-width:1360px;margin:0 auto;padding:30px 56px 120px;display:grid;grid-te
 .tile:hover .t,.tile:focus-visible .t{background-size:100% 3px}
 .go{font-family:system-ui,sans-serif;font-size:22px;color:var(--blue);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
 .tile:hover .go{transform:translate(3px,-3px)}
+.lnk{display:flex;align-items:center;gap:8px;margin-left:auto;white-space:nowrap}
+.lnk .go{line-height:1;display:block}
+.lbl{line-height:1}
+.lbl{display:none;font-family:var(--text);font-size:14px;color:var(--blue);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+/* écrans tactiles : pas de curseur, donc l'étiquette de la bulle s'affiche à gauche de la flèche */
+@media (hover:none){.cap{flex-wrap:wrap;row-gap:6px}.lbl{display:inline}
+  html .mveil.peek .mbox{transform:translate(calc(100% - 26px),12px) rotate(-22deg);pointer-events:auto;cursor:pointer}}
 .meta{font-size:18px;color:var(--dim)}
 .tile:focus-visible{outline:2px solid var(--blue);outline-offset:8px;border-radius:14px}
 
@@ -122,7 +129,7 @@ html,body{overflow-x:hidden}
   .meta{font-size:15px}
 }
 @media (max-width:1000px){main{grid-template-columns:1fr 1fr;padding:20px 32px 90px;gap:48px 28px}.tile,.tile:nth-child(4){grid-column:auto}.tile:last-child{grid-column:1 / -1;max-width:calc(50% - 14px);justify-self:center;width:100%}}
-@media (max-width:640px){.soc{top:14px;left:12px;gap:0}.mailbtn{top:20px;right:14px;font-size:15px}.mveil{top:56px;right:16px}.soc a{width:44px;height:44px}.soc svg{width:22px;height:22px}
+@media (max-width:640px){.soc{top:14px;left:14px;gap:0}.mailbtn{top:20px;right:14px;font-size:15px}.mveil{top:56px;right:16px}.soc a{width:38px;height:44px}.soc svg{width:22px;height:22px}
   header.hero{min-height:auto;padding:110px 20px 50px}
   main{grid-template-columns:1fr;padding:10px 20px 70px;gap:44px}.tile:last-child{max-width:none}}
 @media (prefers-reduced-motion:reduce){.tile{animation:none;opacity:1;transform:none}}
@@ -154,27 +161,27 @@ html,body{overflow-x:hidden}
 <main aria-label="Projects">
     <a class="tile" data-umami-event="Project click" data-umami-event-project="L’Atelier Figma" href="https://www.linkedin.com/feed/update/urn:li:activity:7510960044809568257/" target="_blank" rel="noopener" style="--d:0ms">
       <span class="im" data-tip="Case on Linkedin"><img src="img/atelier.webp" alt="L’Atelier Figma" loading="eager" style="object-position:50% 50%"></span>
-      <div class="cap"><h2 class="t">L’Atelier Figma</h2><span class="go" aria-hidden="true">↗</span></div>
+      <div class="cap"><h2 class="t">L’Atelier Figma</h2><span class="lnk"><span class="lbl">Case on Linkedin</span><span class="go" aria-hidden="true">↗</span></span></div>
       <span class="meta">2026 · Event · Set design</span>
     </a>
     <a class="tile" data-umami-event="Project click" data-umami-event-project="Sorare" href="https://www.linkedin.com/feed/update/urn:li:activity:7300220200203739137/" target="_blank" rel="noopener" style="--d:70ms">
       <span class="im" data-tip="Case on Linkedin"><img src="img/sorare.webp" alt="Sorare" loading="eager" style="object-position:50% 50%"></span>
-      <div class="cap"><h2 class="t">Sorare</h2><span class="go" aria-hidden="true">↗</span></div>
+      <div class="cap"><h2 class="t">Sorare</h2><span class="lnk"><span class="lbl">Case on Linkedin</span><span class="go" aria-hidden="true">↗</span></span></div>
       <span class="meta">2024–2026 · Brand · Marketing</span>
     </a>
     <a class="tile" data-umami-event="Project click" data-umami-event-project="Sport [Gen]" href="https://www.linkedin.com/feed/update/urn:li:activity:7466105289935736832/" target="_blank" rel="noopener" style="--d:140ms">
       <span class="im" data-tip="Case on Linkedin"><img src="img/sportgen.webp" alt="Sport [Gen]" loading="eager" style="object-position:50% 55%"></span>
-      <div class="cap"><h2 class="t">Sport [Gen]</h2><span class="go" aria-hidden="true">↗</span></div>
+      <div class="cap"><h2 class="t">Sport [Gen]</h2><span class="lnk"><span class="lbl">Case on Linkedin</span><span class="go" aria-hidden="true">↗</span></span></div>
       <span class="meta">2026 · Brand · Web · Social</span>
     </a>
     <a class="tile" data-umami-event="Project click" data-umami-event-project="Inktober" href="https://inktober.nabilamara.com/" target="_blank" rel="noopener" style="--d:210ms">
       <span class="im" data-tip="inktober.nabilamara.com"><img src="img/inktober.webp" alt="Inktober" loading="lazy" style="object-position:50% 50%"></span>
-      <div class="cap"><h2 class="t">Inktober</h2><span class="go" aria-hidden="true">↗</span></div>
+      <div class="cap"><h2 class="t">Inktober</h2><span class="lnk"><span class="lbl">inktober.nabilamara.com</span><span class="go" aria-hidden="true">↗</span></span></div>
       <span class="meta">October 2026 · Drawing · Web</span>
     </a>
     <a class="tile" data-umami-event="Project click" data-umami-event-project="Figma’s ABC" href="https://figmabc.figma.site/" target="_blank" rel="noopener" style="--d:280ms">
       <span class="im" data-tip="figmabc.figma.site"><img src="img/figmabc.webp" alt="Figma’s ABC" loading="lazy" style="object-position:50% 45%"></span>
-      <div class="cap"><h2 class="t">Figma’s ABC</h2><span class="go" aria-hidden="true">↗</span></div>
+      <div class="cap"><h2 class="t">Figma’s ABC</h2><span class="lnk"><span class="lbl">figmabc.figma.site</span><span class="go" aria-hidden="true">↗</span></span></div>
       <span class="meta">2026 · Community website</span>
     </a>
 </main>
@@ -182,7 +189,9 @@ html,body{overflow-x:hidden}
 (()=>{const v=document.getElementById('mveil'),b=document.getElementById('mailbtn'),cp=document.getElementById('mcopy'),fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
 const isOn=()=>v.classList.contains('on');
 const open=()=>{v.classList.remove('peek');v.classList.add('on');b.setAttribute('aria-expanded','true');if(!fine)return;setTimeout(()=>v.querySelector('.opt').focus({preventScroll:true}),120)};
-const close=()=>{v.classList.remove('on','peek');b.setAttribute('aria-expanded','false')};
+const close=()=>{v.classList.remove('on','peek');if(!fine)v.classList.add('peek');b.setAttribute('aria-expanded','false')};
+if(!fine){v.classList.add('peek'); // tactile : le coin de la box reste visible sous l'adresse, et l'ouvre au toucher
+  v.addEventListener('click',e=>{if(!isOn()){e.preventDefault();e.stopPropagation();open()}},true)}
 b.onclick=e=>{e.stopPropagation();isOn()?close():open()};
 if(fine){b.addEventListener('pointerenter',()=>{if(!isOn())v.classList.add('peek')});b.addEventListener('pointerleave',()=>v.classList.remove('peek'))}
 document.getElementById('mclose').onclick=close;
