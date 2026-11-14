@@ -105,6 +105,21 @@ main{max-width:1360px;margin:0 auto;padding:30px 56px 120px;display:grid;grid-te
 .mbox .copy button:hover{background:var(--blue)}
 .mbox .copy button.ok{background:var(--blue)}
 @media (max-width:480px){.mbox{padding:26px 18px 18px}.mbox h2{font-size:40px}.mbox .opts{grid-template-columns:1fr}.mbox .opt{flex-direction:row;align-items:center;gap:14px;padding:14px}}
+/* desktop : page fixe, les cinq projets sur une ligne */
+html,body{overflow-x:hidden}
+@media (min-width:1001px) and (min-height:620px){
+  html,body{height:100%;overflow:hidden}
+  body{display:flex;flex-direction:column}
+  header.hero{flex:1;min-height:0;padding:90px 24px 24px}
+  h1{font-size:clamp(64px,min(8.4vw,15vh),150px)}
+  main{width:100%;max-width:1440px;grid-template-columns:repeat(5,1fr);gap:28px;padding:0 48px clamp(36px,6vh,64px)}
+  .tile,.tile:nth-child(4){grid-column:auto}
+  .tile{gap:12px}
+  .im{border-radius:10px}
+  .t{font-size:clamp(22px,1.75vw,30px)}
+  .go{font-size:18px}
+  .meta{font-size:15px}
+}
 @media (max-width:1000px){main{grid-template-columns:1fr 1fr;padding:20px 32px 90px;gap:48px 28px}.tile,.tile:nth-child(4){grid-column:auto}.tile:last-child{grid-column:1 / -1;max-width:calc(50% - 14px);justify-self:center;width:100%}}
 @media (max-width:640px){.soc{top:14px;left:12px;gap:0}.mailbtn{top:20px;right:14px;font-size:15px}.mveil{top:56px;right:16px}.soc a{width:44px;height:44px}.soc svg{width:22px;height:22px}
   header.hero{min-height:auto;padding:110px 20px 50px}
