@@ -109,10 +109,10 @@ main{max-width:1360px;margin:0 auto;padding:30px 56px 120px;display:grid;grid-te
 html,body{overflow-x:hidden}
 @media (min-width:1001px) and (min-height:620px){
   html,body{height:100%;overflow:hidden}
-  body{display:flex;flex-direction:column}
-  header.hero{flex:1;min-height:0;padding:90px 24px 24px}
+  body{display:flex;flex-direction:column;justify-content:center;gap:clamp(40px,7vh,80px);padding:84px 0;box-sizing:border-box}
+  header.hero{flex:none;min-height:0;padding:0 24px}
   h1{font-size:clamp(64px,min(8.4vw,15vh),150px)}
-  main{width:100%;max-width:1440px;grid-template-columns:repeat(5,1fr);gap:28px;padding:0 48px clamp(36px,6vh,64px)}
+  main{width:100%;max-width:1440px;grid-template-columns:repeat(5,1fr);gap:28px;padding:0 48px;margin:0 auto}
   .tile,.tile:nth-child(4){grid-column:auto}
   .tile{gap:12px}
   .im{border-radius:10px}
