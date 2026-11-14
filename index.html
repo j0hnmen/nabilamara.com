@@ -33,7 +33,6 @@
 <style>
 @font-face{font-family:"Archivo DA";src:url(fonts/archivo.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
 @font-face{font-family:"Newsreader DA";src:url(fonts/newsreader.woff2) format("woff2");font-weight:200 800;font-display:swap}
-@font-face{font-family:"Newsreader DA";src:url(fonts/newsreader-italic.woff2) format("woff2");font-weight:200 800;font-style:italic;font-display:swap}
 :root{--ink:#202020;--dim:#5f5f5f;--blue:#554FFF;
   --display:"Mozer","Archivo DA",Impact,sans-serif;--text:"Newsreader DA",Georgia,serif}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -181,7 +180,7 @@ cp.textContent=ok?'Copied ✓':'Selected';cp.classList.add('ok');setTimeout(()=>
 <script>
 (()=>{if(!matchMedia('(hover:hover) and (pointer:fine)').matches)return;
 const t=document.getElementById('tip'),lab=t.querySelector('span i');document.documentElement.classList.add('cc');
-const mv=e=>{t.style.transform=`translate(${e.clientX-3}px,${e.clientY-3}px)`;t.classList.toggle('flip',e.clientX>innerWidth-260);t.classList.add('live');t.classList.remove('out')};
+const mv=e=>{t.style.transform=`translate(${e.clientX-3}px,${e.clientY-3}px)`;t.classList.add('live');t.classList.remove('out')};
 addEventListener('pointermove',mv,{passive:true});addEventListener('pointerdown',e=>{mv(e);t.classList.add('down')});addEventListener('pointerup',()=>t.classList.remove('down'));
 document.documentElement.addEventListener('pointerleave',()=>t.classList.add('out'));
 document.querySelectorAll('[data-tip]').forEach(el=>{
