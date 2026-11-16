@@ -111,7 +111,7 @@ html[data-hold] .srctoast{top:calc(26px + env(safe-area-inset-top))}
 @media (max-width:760px){html[data-hold] .srctoast{top:calc(84px + env(safe-area-inset-top))}}
 @keyframes hbmove{to{background-position:19.8px 0}}
 @media (prefers-reduced-motion:reduce){.hb-tape{animation:none}}
-@media (max-width:760px){.holdbar{top:calc(84px + env(safe-area-inset-top));height:34px;font-size:14px}.hb-tape{width:22px}}
+@media (max-width:760px){.holdbar{top:auto;bottom:calc(84px + env(safe-area-inset-bottom));height:34px;font-size:14px}.hb-tape{width:22px}} /* mobile : juste au-dessus du bouton Let’s talk */
 .mwrap{opacity:0;animation:fadein .6s 2s forwards}
 .mveil{position:absolute;z-index:20;bottom:78px;left:50%;transform:translateX(-50%);width:min(440px,calc(100vw - 32px));pointer-events:none}
 .mbox{position:relative;background:#f0f0f0 url(img/paper-warm.webp) center/cover;border-radius:20px;padding:30px 28px 26px;box-shadow:0 30px 80px rgba(20,20,30,.28),0 0 0 1px rgba(255,255,255,.6) inset;transform:translate(calc(50% - 190px),calc(100% + 200px)) rotate(14deg);transform-origin:0 0;transition:transform .6s cubic-bezier(.2,.9,.2,1)}
