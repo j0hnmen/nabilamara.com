@@ -36,7 +36,7 @@
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600&family=Inter:wght@500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
 <link rel="stylesheet" href="assets/site.css?v=a50e42fa"><link rel="stylesheet" href="assets/system.css?v=e8c2411e">
-<script>window.HOLDFR={talk:"Parlons-en"};</script>
+<script>window.HOLDFR={talk:"Discutons"};</script>
 <script>window.HOLDGO={"atelier": "https://www.linkedin.com/feed/update/urn:li:activity:7510960044809568257/", "sorare": "https://www.linkedin.com/feed/update/urn:li:activity:7300220200203739137/", "sportgen": "https://www.linkedin.com/feed/update/urn:li:activity:7466105289935736832/", "inktober": "https://inktober.nabilamara.com/", "abc": "https://figmabc.figma.site/"};</script>
 <style id="holdcss">
 html[data-hold],html[data-hold] body{overflow:hidden!important;height:100%;overscroll-behavior:none}
@@ -111,7 +111,7 @@ html[data-hold] .srctoast{top:calc(26px + env(safe-area-inset-top))}
 @media (max-width:760px){html[data-hold] .srctoast{top:calc(84px + env(safe-area-inset-top))}}
 @keyframes hbmove{to{background-position:19.8px 0}}
 @media (prefers-reduced-motion:reduce){.hb-tape{animation:none}}
-@media (max-width:760px){.holdbar{top:auto;bottom:calc(84px + env(safe-area-inset-bottom));height:34px;font-size:14px}.hb-tape{width:22px}} /* mobile : juste au-dessus du bouton Let’s talk */
+@media (max-width:760px){.holdbar{top:auto;bottom:calc(100px + env(safe-area-inset-bottom));height:34px;font-size:14px}.hb-tape{width:22px}} /* mobile : juste au-dessus du bouton Let’s talk */
 .mwrap{opacity:0;animation:fadein .6s 2s forwards}
 .mveil{position:absolute;z-index:20;bottom:78px;left:50%;transform:translateX(-50%);width:min(440px,calc(100vw - 32px));pointer-events:none}
 .mbox{position:relative;background:#f0f0f0 url(img/paper-warm.webp) center/cover;border-radius:20px;padding:30px 28px 26px;box-shadow:0 30px 80px rgba(20,20,30,.28),0 0 0 1px rgba(255,255,255,.6) inset;transform:translate(calc(50% - 190px),calc(100% + 200px)) rotate(14deg);transform-origin:0 0;transition:transform .6s cubic-bezier(.2,.9,.2,1)}
@@ -373,6 +373,6 @@ cp.onclick=async()=>{let ok=true;try{await navigator.clipboard.writeText('hello@
 cp.textContent=ok?'Copied ✓':'Selected';cp.classList.add('ok');setTimeout(()=>{cp.textContent='Copy';cp.classList.remove('ok')},2200)};
 })();
 </script>
-<script>(()=>{const H=document.documentElement,b=document.querySelector(".mbuild span");const f=()=>{b.textContent=H.lang==="fr"?"Parlons-en":"Let’s talk"};new MutationObserver(f).observe(H,{attributes:true,attributeFilter:["lang"]});f();})();</script>
+<script>(()=>{const H=document.documentElement,b=document.querySelector(".mbuild span");const f=()=>{b.textContent=H.lang==="fr"?"Discutons":"Let’s talk"};new MutationObserver(f).observe(H,{attributes:true,attributeFilter:["lang"]});f();})();</script>
 </body>
 </html>
