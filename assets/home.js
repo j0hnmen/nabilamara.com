@@ -150,51 +150,54 @@ const CV=(function(){
   function init(){ inited=true;
     const pos=MOB?[[-660,-820,-4],[-220,-1260,3],[220,-800,-2],[-660,330,2],[-200,620,-5],[240,320,4]]:[[-1030,-680,-4],[-220,-880,3],[590,-680,-2],[-1050,250,2],[-220,430,-5],[610,270,4]]; // Figma en haut à gauche, Sorare en haut au milieu // plus d'air autour du nom
     // le nom et le sous-titre sont des vecteurs (lettres vectorisées depuis Mozer), chaque lettre du nom est un calque
-    const K=.3, CAP=688*K, LG=100*K, top=-(CAP*2+LG+46+28)/2; const NAME=NAMEL;
-    GLY.N.forEach((line,li)=>{ const x0=-GLY.W[li]*K/2, y0=top+li*(CAP+LG);
+    const GG=window.NFG||GLY, NL=GG.N.length; /* page 404 : « 404 » à la place du nom, même canvas */
+    const K=window.NFG?.42:.3, CAP=688*K, LG=100*K, top=-(CAP*NL+LG*(NL-1)+46+28)/2; const NAME=NAMEL;
+    GG.N.forEach((line,li)=>{ const x0=-GG.W[li]*K/2, y0=top+li*(CAP+LG);
       line.forEach(([ch,x,w,h,bx,by,d])=>{ NAME.push(add({type:'path',cls:'vec glyph',name:ch,x:x0+x*K,y:y0+(688-by)*K,w:w*K,h:h*K,r:0,
         html:`<svg viewBox="${bx} ${-by} ${w} ${h}" preserveAspectRatio="none"><path transform="scale(1 -1)" d="${d}" fill="#202020"/></svg>`})); }); });
-    { const [d,bx,by,w,h]=GLY.S, k=28/h, W=w*k; NAME.push(SUBN=add({type:'path',cls:'vec glyph sub',name:'AI Creative Designer',x:-W/2,y:top+CAP*2+LG+60,w:W,h:46,r:0,
-        html:`<span class="subtxt">AI Creative Designer</span>`})); } /* sous-titre en style en-tête (Akke, casse normale) */
-    P.forEach((p,i)=>{ if(window.HOLDGO&&!HOLDGO[p.id]) return; /* page provisoire : seulement les projets qui ont un lien */ const n=add({type:'frame',name:p.t,pi:i,x:pos[i][0],y:pos[i][1],w:440,h:0,r:pos[i][2],
+    { const [d,bx,by,w,h]=GLY.S, k=28/h, W=w*k; const ST=window.NFG?'Page not found':'AI Creative Designer'; NAME.push(SUBN=add({type:'path',cls:'vec glyph sub',name:ST,x:-W/2,y:top+CAP*NL+LG*(NL-1)+60,w:W,h:46,r:0,
+        html:`<span class="subtxt">${ST}</span>`})); } /* sous-titre en style en-tête (Akke, casse normale) */
+    const SUBY=top+CAP*NL+LG*(NL-1)+60;
+    P.forEach((p,i)=>{ if(window.NFG) return; /* 404 : pas de projets */ if(window.HOLDGO&&!HOLDGO[p.id]) return; /* page provisoire : seulement les projets qui ont un lien */ const n=add({type:'frame',name:p.t,pi:i,x:pos[i][0],y:pos[i][1],w:440,h:0,r:pos[i][2],
       html:p.link?`<div class="fb cl"><div class="livetag" aria-hidden="true"><i></i>Live</div><div class="clh"><svg viewBox="0 0 24 24" class="ib"><path d="M8 4c-2 0-2.5 1-2.5 3v2.2c0 1.3-.6 2.3-2 2.8 1.4.5 2 1.5 2 2.8V17c0 2 .5 3 2.5 3M16 4c2 0 2.5 1 2.5 3v2.2c0 1.3.6 2.3 2 2.8-1.4.5-2 1.5-2 2.8V17c0 2-.5 3-2.5 3"/></svg><span>${p.t}</span><span class="clic"><button data-cl="case" title="Case study"><svg viewBox="0 0 24 24"><path d="M12 3.5a8.5 8.5 0 0 0-7.4 12.7L3.5 20.5l4.4-1.1A8.5 8.5 0 1 0 12 3.5z"/></svg></button><a data-cl="open" href="${p.link[1]}" target="_blank" rel="noopener" title="Open ${p.link[0]}"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-7 7M10 20H4v-6M4 20l7-7"/></svg></a><a data-cl="play" href="${p.link[1]}" target="_blank" rel="noopener" title="Open ${p.link[0]}"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></a>${LIVE?'<button data-cl="stop" title="Stop the live site"><svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2" fill="currentColor" stroke="none"/></svg></button>':''}</span></div><div class="clb"><img src="${src(p.imgs[0])}" alt="${p.t}" style="object-position:${p.pos}" draggable="false"></div></div>`
         :`<div class="fb"><img src="${src(p.imgs[0])}" alt="${p.t}" style="object-position:${p.pos}" draggable="false"><div class="ft"><div class="fe"><span class="fc">${p.nat}</span><span class="fy">${p.y}</span></div>${({atelier:"figma",sorare:"sorare",sportgen:"sportgen"})[p.id]?`<h3 class="hlg hlg-${p.id}"><img src="img/clients/${({atelier:"figma",sorare:"sorare",sportgen:"sportgen"})[p.id]}.png" alt="${p.t}"></h3>`:`<h3>${p.t}</h3>`}<p>${p.sub}</p></div></div>`}); });
     // sites intégrés : interface façon calque de code Figma ({ } nom, puis commentaire / agrandir / lancer)
     nodes.forEach(n=>n.el.querySelectorAll('[data-cl]').forEach(b=>b.addEventListener('pointerdown',e=>{ e.stopPropagation(); const k=b.dataset.cl; if(k==='open'||k==='play') return; /* play = ouvre le vrai site dans un nouvel onglet */ e.preventDefault(); select(n); if(k==='stop'){ liveOff(n); return; } })));
     // sites intégrés : le vrai site s'affiche directement dans la frame, sans texte, une fois l'arrivée terminée
     if(LIVE&&!MOB) setTimeout(()=>nodes.forEach(n=>{ if(n.type==='frame'&&P[n.pi]&&P[n.pi].link) liveOn(n); }),2600);
-    add({type:'note',name:'Note',x:1130,y:-560,w:250,h:0,r:5,html:'<div class="fb">Everything moves, rotates, stretches. Add shapes, scribble. Click a project to open it.</div>'});
+    if(!window.NFG) add({type:'note',name:'Note',x:1130,y:-560,w:250,h:0,r:5,html:'<div class="fb">Everything moves, rotates, stretches. Add shapes, scribble. Click a project to open it.</div>'});
     // post-it : le Konami code, à taper sur la page
-    add({type:'note',cls:'postit',name:'Post-it',x:-1370,y:330,w:250,h:0,r:-6,html:'<div class="fb"><b>Konami code</b><span class="kc">↑ ↑ ↓ ↓ ← → ← →<br>B A ⏎</span></div>'});
-    add({type:'shape',cls:'ell',name:'Ellipse',x:1160,y:-190,w:170,h:170,r:0,fill:'#564FFF'});
-    add({type:'shape',cls:'rect',name:'Rectangle',x:1130,y:120,w:210,h:130,r:-12,fill:'#3BE9CE'});
+    add({type:'note',cls:'postit',name:'Post-it',x:window.NFG?-700:-1370,y:window.NFG?-60:330,w:250,h:0,r:-6,html:'<div class="fb"><b>Konami code</b><span class="kc">↑ ↑ ↓ ↓ ← → ← →<br>B A ⏎</span></div>'});
+    add({type:'shape',cls:'ell',name:'Ellipse',x:window.NFG?397:1160,y:window.NFG?238:-190,w:window.NFG?130:170,h:window.NFG?130:170,r:0,fill:'#564FFF'});
+    add({type:'shape',cls:'rect',name:'Rectangle',x:window.NFG?-336:1130,y:window.NFG?-428:120,w:window.NFG?170:210,h:window.NFG?105:130,r:-12,fill:'#3BE9CE'});
     // gribouillis au feutre : entourés, soulignés, flèches, petites notes — ils se dessinent après l'arrivée
     const IB='#564FFF', IK='#202020', IG='#12BFA2'; let di=0; // vert de la DA, un cran plus soutenu pour se lire sur le papier
     const ink=(name,x,y,w,h,r,d,c=IB,sw=6,txt='')=>{ const dl=(6.2+(di++)*.28).toFixed(2);
       add({type:'path',cls:'ink',name,x,y,w,h,r,html:`<svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" style="--d:${dl}s;overflow:visible">${d?`<path d="${d}" pathLength="1" fill="none" stroke="${c}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round"/>`:''}${txt}</svg>`}); };
     const note=(t,x,y,size=46,c=IB)=>`<text x="${x}" y="${y}" font-family="Caveat,cursive" font-weight="600" font-size="${size}" fill="${c}">${t}</text>`;
     // le sous-titre entouré
-    ink('Scribble',-385,198,770,112,-1.5,'M70,22 C200,6 380,4 520,10 C660,16 712,38 700,66 C688,98 470,106 300,102 C130,98 10,86 14,60 C18,40 40,30 96,20');
+    ink('Scribble',-385,SUBY-46.4,770,112,-1.5,'M70,22 C200,6 380,4 520,10 C660,16 712,38 700,66 C688,98 470,106 300,102 C130,98 10,86 14,60 C18,40 40,30 96,20');
     // « hello! » au-dessus du nom
-    ink('Note',-760,-160,240,90,-8,'M14,74 C70,62 150,62 214,70','#564FFF',5,note('hello!',18,52,46));
+    if(!window.NFG) ink('Note',-760,-160,240,90,-8,'M14,74 C70,62 150,62 214,70','#564FFF',5,note('hello!',18,52,46));
     // flèche vers L'Atelier Figma
-    ink('Arrow',pos[0][0]+200-28,pos[0][1]-56-138,270,150,0,'M92,60 C62,70 40,98 28,138 M28,138 L18,112 M28,138 L50,120',IK,5,note('latest',100,56,46,IK));
+    if(!window.NFG) ink('Arrow',pos[0][0]+200-28,pos[0][1]-56-138,270,150,0,'M92,60 C62,70 40,98 28,138 M28,138 L18,112 M28,138 L50,120',IK,5,note('latest',100,56,46,IK));
     // le post-it Konami entouré + « try it! »
-    ink('Scribble',-1402,302,316,210,-4,'M30,40 C120,8 250,6 296,40 C330,70 312,170 270,192 C200,214 80,212 30,186 C2,160 0,70 24,48 C40,30 70,24 100,22',IG,5);
-    ink('Note',-1390,190,240,130,-6,'M156,34 C196,44 212,74 206,116 M206,116 L192,92 M206,116 L222,96',IG,5,note('try it!',6,56,46,IG));
+    ink('Scribble',window.NFG?-732:-1402,window.NFG?-88:302,316,210,-4,'M30,40 C120,8 250,6 296,40 C330,70 312,170 270,192 C200,214 80,212 30,186 C2,160 0,70 24,48 C40,30 70,24 100,22',IG,5);
+    ink('Note',window.NFG?-720:-1390,window.NFG?-200:190,240,130,-6,'M156,34 C196,44 212,74 206,116 M206,116 L192,92 M206,116 L222,96',IG,5,note('try it!',6,56,46,IG));
     // calque de code : « click me » avec flèche
-    ink('Arrow',1065,410,230,150,0,'M206,40 C150,14 70,26 24,84 M24,84 L32,52 M24,84 L56,84',IB,5,note('click me',70,138,46));
+    if(!window.NFG) ink('Arrow',1065,410,230,150,0,'M206,40 C150,14 70,26 24,84 M24,84 L32,52 M24,84 L56,84',IB,5,note('click me',70,138,46));
     // double soulignement sous la note
-    ink('Scribble',1130,-406,260,30,5,'M6,10 C80,4 180,6 254,12 M30,24 C100,18 170,20 236,26',IG,5);
+    if(!window.NFG) ink('Scribble',1130,-406,260,30,5,'M6,10 C80,4 180,6 254,12 M30,24 C100,18 170,20 236,26',IG,5);
     // page provisoire : Filly, un simple calque vectoriel posé de travers en bas du canvas, qui arrive en dernier
-    if(window.HOLDGO&&window.AOSSVG){ add({type:'path',cls:'vec aosv',name:'AssetsOS',x:MOB?250:650,y:MOB?720:-40,w:MOB?300:360,h:MOB?56:67,r:-5,html:window.AOSSVG}); } /* logo AssetsOS : un clic ouvre assetsos.nabilamara.com */
-    if(window.FILLY){ const w=MOB?200:120, h=Math.round(w*408/380); add({type:'path',cls:'vec filly',name:'Filly',x:MOB?-90:14,y:MOB?740:398,w,h,r:-9,html:`<img src="${window.FILLY.src}" alt="" draggable="false" style="width:100%;height:100%;display:block;pointer-events:none">`}); }
-    if(MOB){ for(const n of [...nodes]){ const keep=n.type==='frame'||n.name==='Filly'||NAMEL.includes(n)||(n.el.classList.contains('ink')&&['Scribble','Note','Arrow'].includes(n.name)&&(n.y===198||n.name==='Note'&&n.x===-760||n.name==='Arrow'&&n.x===236));
+    if(window.NFG) add({type:'note',cls:'inst404',name:'Detached instance',x:-153,y:274,w:300,h:0,r:4,html:'<div class="fb"><svg class="dtic" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7.5 11.6 6a4 4 0 0 1 5.7 5.7l-1.6 1.6M14 16.5 12.4 18a4 4 0 0 1-5.7-5.7l1.6-1.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 4l2.2 2.2M20 20l-2.2-2.2M8.5 3v2M3 8.5h2M15.5 21v-2M21 15.5h-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Oops, an instance was detached it seems.</div>'});
+    if(window.HOLDGO&&window.AOSSVG){ add({type:'path',cls:'vec aosv',name:'AssetsOS',x:MOB?250:window.NFG?432:650,y:MOB?720:window.NFG?-68:-40,w:MOB?300:360,h:MOB?56:67,r:-5,html:window.AOSSVG}); } /* logo AssetsOS : un clic ouvre assetsos.nabilamara.com */
+    if(window.FILLY&&!window.NFG){ const w=MOB?200:120, h=Math.round(w*408/380); add({type:'path',cls:'vec filly',name:'Filly',x:MOB?-90:14,y:MOB?740:398,w,h,r:-9,html:`<img src="${window.FILLY.src}" alt="" draggable="false" style="width:100%;height:100%;display:block;pointer-events:none">`}); }
+    if(MOB){ for(const n of [...nodes]){ const keep=n.type==='frame'||n.name==='Filly'||NAMEL.includes(n)||(window.NFG&&n.name==='Scribble'&&n.x===-385)||(n.el.classList.contains('ink')&&['Scribble','Note','Arrow'].includes(n.name)&&(n.y===198||n.name==='Note'&&n.x===-760||n.name==='Arrow'&&n.x===236));
         if(!keep){ n.el.remove(); nodes.splice(nodes.indexOf(n),1); } }
       for(const n of nodes){ if(n.name==='Note'&&n.el.classList.contains('ink')){ n.x=-470; n.y=-420; place(n); } if(n.name==='Arrow'){ n.x=230; n.y=-1390; place(n); } } }
     center(); }
   // vue d'ouverture : le logo au centre, les projets autour
-  function center(){ z=MOB?Math.min(innerWidth*.94/1320,innerHeight*.9/2450):innerWidth<=760?Math.min(innerWidth*.92/900,1):Math.min(innerWidth*.86/2400*1.3,innerHeight*.86/1680*1.3,1.2); px=innerWidth/2; py=innerHeight/2; apply(); }
+  function center(){ if(window.NFG&&!MOB){ z=Math.min(innerWidth/2195,innerHeight/1128,1.2); px=innerWidth/2-33*z; py=innerHeight/2-31*z; apply(); return; } /* 404 : cadrage plus serré */ z=MOB?Math.min(innerWidth*.94/1320,innerHeight*.9/2450):innerWidth<=760?Math.min(innerWidth*.92/900,1):Math.min(innerWidth*.86/2400*1.3,innerHeight*.86/1680*1.3,1.2); px=innerWidth/2; py=innerHeight/2; apply(); }
   // retour à la vue d'ouverture (nom au centre), en glissant
   let homeRaf=0; function home(ms=900){ cancelAnimationFrame(homeRaf); const z0=z,x0=px,y0=py, z1=MOB?Math.min(innerWidth*.94/1320,innerHeight*.9/2450):innerWidth<=760?Math.min(innerWidth*.92/900,1):Math.min(innerWidth*.86/2400*1.3,innerHeight*.86/1680*1.3,1.2), x1=innerWidth/2, y1=innerHeight/2, t0=performance.now();
     const st=t=>{ const k=Math.min(1,(t-t0)/ms), e=1-Math.pow(1-k,3); z=z0+(z1-z0)*e; px=x0+(x1-x0)*e; py=y0+(y1-y0)*e; apply(); if(k<1) homeRaf=requestAnimationFrame(st); }; homeRaf=requestAnimationFrame(st); }
