@@ -24,7 +24,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/fav-32.png"><link rel="icon" type="image/png" sizes="192x192" href="/fav-192.png">
 <link rel="apple-touch-icon" href="/fav-apple.png">
 <link rel="manifest" href="/site.webmanifest">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Nabil Amara", "url": "https://nabilamara.com/", "image": "https://nabilamara.com/og.jpg", "jobTitle": "AI Creative Designer", "email": "mailto:hello@nabilamara.com", "address": {"@type": "PostalAddress", "addressLocality": "Paris", "addressCountry": "FR"}, "knowsAbout": ["Brand design", "Web design", "Marketing design", "Figma"], "sameAs": ["https://www.instagram.com/nabiljamara/", "https://www.linkedin.com/in/nabilamara/"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Nabil Amara", "url": "https://nabilamara.com/"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Nabil Amara", "url": "https://nabilamara.com/", "image": "https://nabilamara.com/og.jpg", "jobTitle": "AI Creative Designer", "email": "mailto:hello@nabilamara.com", "address": {"@type": "PostalAddress", "addressLocality": "Paris", "addressCountry": "FR"}, "knowsAbout": ["Brand design", "Web design", "Marketing design", "Figma"], "sameAs": ["https://www.instagram.com/nabiljamara/", "https://www.linkedin.com/in/nabilamara/"]}</script>
 <script>/* nabilamara.com/?moi : ne plus compter ses propres visites sur cet appareil */try{if(/[?&]moi\b/.test(location.search)){localStorage.setItem('umami.disabled','1');history.replaceState(null,'',location.pathname)}}catch(e){}</script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="88ea7a6a-5002-44d0-b5ff-8133c80c9604"></script><style>html.boot body{visibility:hidden}html[data-hold] .node.aosv{cursor:pointer;color:#202020}html[data-hold] .node.aosv svg{width:100%;height:auto;display:block;overflow:visible}
 </style><script>document.documentElement.classList.add('boot');setTimeout(function(){document.documentElement.classList.remove('boot')},4000)</script>
@@ -411,5 +411,16 @@ cp.textContent=ok?'Copied ✓':'Selected';cp.classList.add('ok');setTimeout(()=>
 })();
 </script>
 <script>(()=>{const H=document.documentElement,b=document.querySelector(".mbuild span");const f=()=>{b.textContent=H.lang==="fr"?"Discutons":"Let’s talk"};new MutationObserver(f).observe(H,{attributes:true,attributeFilter:["lang"]});f();})();</script>
+<script>/* canvas : libellé du curseur au survol des projets et d'AssetsOS */
+document.addEventListener('pointerover',e=>{const el=e.target.closest&&e.target.closest('.node.frame,.node.aosv');if(!el||!window.HOLDGO)return;const fr=document.documentElement.lang==='fr';let t;
+if(el.classList.contains('aosv'))t=fr?'Découvrir AssetsOS':'Discover AssetsOS';
+else{const n=el._n,p=n&&typeof P!=='undefined'?P[n.pi]:null,u=p&&HOLDGO[p.id];if(!u)return;t=/linkedin\.com/.test(u)?(fr?'Voir le post':'See the post'):(fr?'Voir le site':'Visit the site');}
+el.dataset.tip=t;el.setAttribute('data-plain','');},true);
+/* curseur au survol d'un lien : comme sur le site V1.5, un anneau bleu entoure la flèche et un trait cyan file dessus */
+(()=>{const t=document.getElementById('tip'),sv=t&&t.querySelector('svg'),base=sv&&sv.querySelector('path');if(!base||sv.querySelector('.ring'))return;
+['ring','run'].forEach(c=>{const q=base.cloneNode();q.setAttribute('class',c);q.setAttribute('fill','none');q.removeAttribute('stroke');q.removeAttribute('stroke-width');q.setAttribute('pathLength','1');sv.insertBefore(q,base);});
+const SEL='a[href],button,summary,[role=button],label[for],[data-tip],.node.frame,.node.aosv';
+document.addEventListener('pointerover',e=>t.classList.toggle('lk',!!(e.target.closest&&e.target.closest(SEL))));})();</script>
+<style>.tip svg{overflow:visible;filter:drop-shadow(0 4px 8px rgba(0,0,0,.26));transition:filter .25s}.tip svg .ring,.tip svg .run{stroke-width:13;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .25s}.tip svg .ring{stroke:#564fff}.tip svg .run{stroke:#5fe6ff;stroke-dasharray:.34 .66}.tip.lk svg .ring{opacity:1}.tip.lk svg .run{opacity:1;animation:currun 1.5s linear infinite}@keyframes currun{to{stroke-dashoffset:-1}}.tip.lk svg{filter:drop-shadow(0 9px 12px rgba(0,0,0,.42))}@media (prefers-reduced-motion:reduce){.tip.lk svg .run{animation:none;opacity:0}}</style>
 </body>
 </html>
